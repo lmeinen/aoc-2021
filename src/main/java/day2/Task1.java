@@ -1,4 +1,4 @@
-package day1;
+package day2;
 
 import java.io.IOException;
 import util.AOCTemplate;
@@ -12,7 +12,7 @@ public class Task1 extends AOCTemplate {
     public static void main(String[] args) {
         final Task1 task;
         try {
-            task = new Task1("day1.txt");
+            task = new Task1("day2.txt");
             task.solve();
         } catch (IOException e) {
             writer.println("Instantiation of task solver failed, aborting...");
@@ -23,19 +23,23 @@ public class Task1 extends AOCTemplate {
 
     @Override
     public void solve() {
-        Integer prevVal = null;
-        var numIncreases = 0;
+        var hPos = 0;
+        var vPos = 0;
         while (true) {
             try {
-                var x = reader.nextInt();
-                if (prevVal != null && x > prevVal) {
-                    numIncreases++;
+                var cmd = reader.next();
+                var val = reader.nextInt();
+                switch (cmd) {
+                    case "forward" -> hPos += val;
+                    case "down" -> vPos += val;
+                    case "up" -> vPos -= val;
+                    default -> throw new UnsupportedOperationException("Unknown cmd: " + cmd);
                 }
-                prevVal = x;
             } catch (NullPointerException e) {
+                writer.println("Reached EOF");
                 break;
             }
         }
-        writer.println("Number of increases: " + numIncreases);
+        writer.printf("At (H: %d, V: %d) --> %d%n", hPos, vPos, hPos * vPos);
     }
 }

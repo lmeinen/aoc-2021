@@ -12,17 +12,13 @@ public class Task2 extends AOCTemplate {
     public static void main(String[] args) {
         final Task2 task;
         try {
-            task = new Task2("day1/day1_task2.txt");
+            task = new Task2("day1.txt");
             task.solve();
         } catch (IOException e) {
             writer.println("Instantiation of task solver failed, aborting...");
         }
         writer.flush();
         writer.close();
-    }
-
-    private int prevIndex(int i) {
-        return i - 1 < 0 ? 2 : i - 1;
     }
 
     private int nextIndex(int i) {
@@ -39,7 +35,6 @@ public class Task2 extends AOCTemplate {
             try {
                 var prevVal = currWindow[i];
                 currWindow[i] = reader.nextInt();
-                writer.println("looking at " + currWindow[i]);
                 if (runningSum == null && i == 2) {
                     runningSum = currWindow[0] + currWindow[1] + currWindow[2];
                 } else if (runningSum != null) {
